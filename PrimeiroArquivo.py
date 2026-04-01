@@ -7,3 +7,4 @@ nomes = []
 for nome in nomes:
     nomes.append(nome)
     print(nome)
+    print("Segue lista de nomes", nomes)
