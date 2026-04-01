@@ -1,6 +1,5 @@
 print("Olá mundo")
 print("Meu projeto se chama Pokedev")
-
 nome = input("Digite seu nome: ")
 print(nome)
 
