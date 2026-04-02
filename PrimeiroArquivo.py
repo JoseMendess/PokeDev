@@ -3,3 +3,4 @@ print("Qual seu nome?")
 print("Qual seu telefone?")
 
 idade = 18
+print(idade)
