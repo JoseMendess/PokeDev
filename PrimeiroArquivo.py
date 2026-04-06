@@ -1,3 +1,4 @@
+import csv
 import requests
 def buscar_pokemon(nome):
     url = f"https://pokeapi.co/api/v2/pokemon/{nome.lower()}"
@@ -55,3 +56,7 @@ def simular_batalha(p1, p2):
 
         turno += 1
 
+def salvar_resultado(p1, p2, vencedor):
+    with open("historico_batalhas.csv", mode="a", newline="") as arquivo:
+        writer = csv.writer(arquivo)
+        writer.writerow([p1["nome"], p2["nome"], vencedor])
