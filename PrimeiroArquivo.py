@@ -1,5 +1,8 @@
 import csv
 import requests
+import matplotlib.pyplot as plt
+import numpy as np
+
 def buscar_pokemon(nome):
     url = f"https://pokeapi.co/api/v2/pokemon/{nome.lower()}"
     resposta = requests.get(url)
@@ -22,7 +25,6 @@ def buscar_pokemon(nome):
         "velocidade": stats["speed"]
     }
     return pokemon
-
 
 def simular_batalha(p1, p2):
     vida1 = p1["vida"]
@@ -60,3 +62,29 @@ def salvar_resultado(p1, p2, vencedor):
     with open("historico_batalhas.csv", mode="a", newline="") as arquivo:
         writer = csv.writer(arquivo)
         writer.writerow([p1["nome"], p2["nome"], vencedor])
+
+def grafico_radar(p1, p2):
+    categorias = ["vida", "ataque", "defesa", "velocidade"]
+
+    valores1 = [p1[c] for c in categorias]
+    valores2 = [p2[c] for c in categorias]
+
+    valores1 += valores1[:1]
+    valores2 += valores2[:1]
+
+    angulos = np.linspace(0, 2 * np.pi, len(categorias), endpoint=False).tolist()
+    angulos += angulos[:1]
+
+    plt.figure()
+    ax = plt.subplot(111, polar=True)
+
+    ax.plot(angulos, valores1, label=p1["nome"])
+    ax.fill(angulos, valores1, alpha=0.1)
+
+    ax.plot(angulos, valores2, label=p2["nome"])
+    ax.fill(angulos, valores2, alpha=0.1)
+
+    ax.set_thetagrids(np.degrees(angulos[:-1]), categorias)
+    plt.legend()
+    plt.title("Comparação de Status")
+    plt.show()
