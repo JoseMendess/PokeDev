@@ -88,3 +88,21 @@ def grafico_radar(p1, p2):
     plt.legend()
     plt.title("Comparação de Status")
     plt.show()
+
+def main():
+    nome1 = input("Digite o nome do primeiro Pokémon: ")
+    nome2 = input("Digite o nome do segundo Pokémon: ")
+
+    p1 = buscar_pokemon(nome1)
+    p2 = buscar_pokemon(nome2)
+
+    if not p1 or not p2:
+        print("Erro ao buscar Pokémon.")
+        return
+
+    vencedor = simular_batalha(p1, p2)
+
+    salvar_resultado(p1, p2, vencedor)
+
+    grafico_radar(p1, p2)
+    main()
